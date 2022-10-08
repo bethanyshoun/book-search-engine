@@ -4,7 +4,8 @@ const db = require('./config/connection');
 const routes = require('./routes');
 const { ApolloServer } = require('apollo-server-express');
 
-const { authMiddleware } = require(./schemas);
+const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require("./utils/");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -21,3 +22,5 @@ app.use(routes);
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });
+
+startApolloServer(typeDefs, resolvers);
