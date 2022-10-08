@@ -68,17 +68,6 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    deleteBook: async({ book, params }, res) => {
-        const updatedBook = await Book.findOneAndUpdate(
-          { _id: bookId },
-          { $pull: { savedBooks: { bookId: params.bookId } } },
-          { new: true }
-        );
-        if (!updatedBook) {
-          return res.status(404).json({ message: "Couldn't find a book with this id!" });
-        }
-        return res.json(updatedBook);
-      }
   }
 };
 
